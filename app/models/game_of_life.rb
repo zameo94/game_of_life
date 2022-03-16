@@ -2,6 +2,7 @@ class GameOfLife
   attr_accessor :width
   attr_accessor :height
   attr_accessor :file
+  attr_accessor :error
 
   def initialize
     self.width = 10
@@ -9,7 +10,12 @@ class GameOfLife
   end
 
   def upload_txt(path = "storage/test.txt")
-    validate_file(File.open(path, "r"))
+    if File.exist?(path)
+      validate_file(File.open(path, "r"))
+    else
+      self.error = "File not found"
+      false
+    end
   end
 
   private
@@ -19,6 +25,7 @@ class GameOfLife
       self.file = file
       true
     else
+      self.error = "Wrong file format"
       false
     end
   end

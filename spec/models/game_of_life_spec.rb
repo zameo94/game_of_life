@@ -17,9 +17,19 @@ RSpec.describe GameOfLife, type: :model do
   end
 
   context "upload_txt" do
-    it "accept only txt" do
+    it "upload txt" do
       expect(game_of_life.upload_txt(path)).to eq(true)
+      expect(game_of_life.error).to eq(nil)
+    end
+
+    it "upload not txt" do
       expect(game_of_life.upload_txt("storage/test.xml")).to eq(false)
+      expect(game_of_life.error).to eq("Wrong file format")
+    end
+
+    it "file not found" do
+      expect(game_of_life.upload_txt("storage/test.aaa")).to eq(false)
+      expect(game_of_life.error).to eq("File not found")
     end
 
     it "self.file" do
