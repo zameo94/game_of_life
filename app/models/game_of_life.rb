@@ -17,10 +17,8 @@ class GameOfLife
   def validate_file(file)
     if File.extname(file).eql? ".txt"
       self.file = file
-      puts self.file.read
       true
     else
-      puts "Error format"
       false
     end
   end
