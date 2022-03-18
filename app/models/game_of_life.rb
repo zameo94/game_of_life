@@ -9,23 +9,34 @@ class GameOfLife
   def initialize
     self.width = 10
     self.height = 10
+    @alive_cells = {}
   end
 
   def run(path = "storage/test.txt")
     upload_txt(path)
 
     if error.nil?
-      puts "Generation: #{self.generation}"
-      puts "#{self.height} #{self.width}"
+      print_frame
 
-      self.height.times.each do |y|
-        output = ""
-        self.width.times.each do |x|
-          output += self.frame[y][x]
-        end
-        puts output
-      end
+      advance_frame
       true
+    end
+  end
+
+  def print_frame
+    puts "Generation: #{self.generation}"
+    puts "#{self.height} #{self.width}"
+
+    self.height.times.each do |y|
+      output = ""
+      self.width.times.each do |x|
+        if @alive_cells.has_key?([y , x])
+          output += "*"
+        else
+          output += "."
+        end
+      end
+      puts output
     end
   end
 
@@ -44,37 +55,38 @@ class GameOfLife
   end
 
   def advance_frame
+    new_alive = {}
+    self.height.times do |y|
+      self.width.times do |x|
+        alive = self.frame[y][x].eql? "*"
 
-    new_grid = {}
-
-    self.width.time do |x|
-      self.height.time do |y|
-
-      end
-    end
-
-    (Window.width / SQUARE_SIZE).times do |x|
-      (Window.height / SQUARE_SIZE).times do |y|
-        alive = @grid.has_key?([x, y])
         alive_neightbours = [
-          @grid.has_key?([x - 1, y - 1]), # Top Left
-          @grid.has_key?([x, y - 1]), # Top
-          @grid.has_key?([x + 1, y - 1]), # Top Right
-          @grid.has_key?([x + 1, y]), # Right
-          @grid.has_key?([x + 1, y + 1]), # Bottom Right
-          @grid.has_key?([x, y + 1]), # Bottom
-          @grid.has_key?([x - 1, y + 1]), # Bottom Left
-          @grid.has_key?([x - 1, y]) # Left
+          @alive_cells.has_key?([y - 1, x - 1]), # Top Left
+          @alive_cells.has_key?([y - 1, x]), # Top
+          @alive_cells.has_key?([y - 1, x + 1]), # Top Right
+          @alive_cells.has_key?([y, x + 1]), # Right
+          @alive_cells.has_key?([y + 1, x + 1]), # Bottom Right
+          @alive_cells.has_key?([y + 1, x]), # Bottom
+          @alive_cells.has_key?([y + 1, x - 1]), # Bottom Left
+          @alive_cells.has_key?([y, x - 1]) # Left
         ].count(true)
 
         if (alive and alive_neightbours.between?(2, 3)) or (!alive and alive_neightbours.eql? 3)
-          new_grid[[x, y]] = true
+          new_alive[[y, x]] = true
         end
       end
     end
 
-    @grid = new_grid
+    @alive_cells = new_alive
 
+    self.generation += 1
+
+    puts ""
+    puts "-"*50
+    puts ""
+    print_frame
+    sleep 0.5
+    advance_frame
   end
 
   private
@@ -125,6 +137,10 @@ class GameOfLife
     self.height.times do |y|
       self.width.times do |x|
         frame[y][x] = @rows[y + 2][x]
+
+        if @rows[y + 2][x].eql? "*"
+          @alive_cells[[y, x]] = true
+        end
       end
     end
 
