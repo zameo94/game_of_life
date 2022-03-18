@@ -3,25 +3,28 @@ class GameOfLife
   attr_accessor :height
   attr_accessor :file
   attr_accessor :generation
-  attr_accessor :error
+  attr_accessor :errors
   attr_accessor :alive_cells
 
   def initialize
     self.width = 0
     self.height = 0
-    self.error = ''
+    self.errors = ''
     self.alive_cells = {}
   end
 
   def run(path = "storage/test.txt")
     self.alive_cells = {}
-    self.error = ''
+    self.errors = ''
     upload_txt(path)
 
-    return self.error unless self.error.empty?
-    print_frame
-    sleep 0.5
-    advance_frame
+    if self.errors.empty?
+      print_frame
+      sleep 0.5
+      advance_frame
+    else
+      puts self.errors
+    end
   end
 
   def upload_txt(path)
@@ -34,7 +37,7 @@ class GameOfLife
         parse_file
       end
     else
-      self.error += "File not found. "
+      self.errors += "File not found. "
     end
   end
 
@@ -74,7 +77,7 @@ class GameOfLife
     if File.extname(file).eql? ".txt"
       self.file = file.read
     else
-      self.error += "Wrong file format. "
+      self.errors += "Wrong file format. "
     end
   end
 
@@ -82,7 +85,7 @@ class GameOfLife
     @rows = self.file.split(/\n/)
     get_generation
     get_width_height
-    get_alive_cells if self.error.empty?
+    get_alive_cells if self.errors.empty?
   end
 
   def get_generation
@@ -91,7 +94,7 @@ class GameOfLife
       columns = row.split(":")
       self.generation = columns[0].last.to_i
     else
-      self.error += "Unable to find generation. "
+      self.errors += "Unable to find generation. "
     end
   end
 
@@ -99,13 +102,13 @@ class GameOfLife
     row = @rows[1]
 
     if row.nil?
-      self.error += "Unable to get width & height. "
+      self.errors += "Unable to get width & height. "
     else
       if (row[0].to_i > 0) and (row[2].to_i > 0)
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
-        self.error += "Unable to get width & height. "
+        self.errors += "Unable to get width & height. "
       end
     end
   end
@@ -125,7 +128,7 @@ class GameOfLife
       end
     end
 
-    self.error += "Unable to get alive_cells\n" if self.alive_cells.empty?
+    self.errors += "Unable to get alive_cells\n" if self.alive_cells.empty?
   end
 
   def recalculate_alive_cells
