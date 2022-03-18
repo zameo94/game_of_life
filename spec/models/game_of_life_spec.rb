@@ -19,17 +19,17 @@ RSpec.describe GameOfLife, type: :model do
   context "upload_txt" do
     it "upload txt" do
       game_of_life.upload_txt(path)
-      expect(game_of_life.error).to eq('')
+      expect(game_of_life.errors).to eq('')
     end
 
     it "upload not txt" do
       game_of_life.upload_txt("spec/files/test.xml")
-      expect(game_of_life.error).to eq("Wrong file format. ")
+      expect(game_of_life.errors).to eq("Wrong file format. ")
     end
 
     it "file not found" do
       game_of_life.upload_txt("storage/test.aaa")
-      expect(game_of_life.error).to eq("File not found. ")
+      expect(game_of_life.errors).to eq("File not found. ")
     end
 
     it "self.file" do
@@ -59,7 +59,7 @@ RSpec.describe GameOfLife, type: :model do
       game_of_life.upload_txt(path)
 
       expect(game_of_life.width).to eq(my_width)
-      expect(game_of_life.error).to eq("")
+      expect(game_of_life.errors).to eq("")
     end
 
     it "get_height" do
@@ -67,7 +67,7 @@ RSpec.describe GameOfLife, type: :model do
       game_of_life.upload_txt(path)
 
       expect(game_of_life.height).to eq(my_height)
-      expect(game_of_life.error).to eq("")
+      expect(game_of_life.errors).to eq("")
     end
 
     it "alive_cells" do
@@ -75,7 +75,7 @@ RSpec.describe GameOfLife, type: :model do
       game_of_life.upload_txt(path)
 
       expect(game_of_life.alive_cells).to eq(my_alive_cells)
-      expect(game_of_life.error).to eq("")
+      expect(game_of_life.errors).to eq("")
     end
   end
 end
