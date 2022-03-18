@@ -130,20 +130,4 @@ class GameOfLife
 
     self.frame = frame
   end
-
-  def get_frame_old
-    frame = ""
-    for i in 0...self.height
-      #I sum 2 at row index 'i' for exclude the generation and width/height rows
-      frame += @rows[i + 2]
-
-      #knowning which arrays start at 0, i add 1 at row index 'i' for ri-equilibrate counts,
-      # so the \n is not added at the last line
-      frame += "\n" unless (i + 1).eql? self.height
-    end
-
-    self.frame = frame
-    self.error = 'Unable to get frame' if self.frame.nil?
-  end
-
 end
