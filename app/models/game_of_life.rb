@@ -59,9 +59,6 @@ class GameOfLife
     recalculate_alive_cells
     self.generation += 1
 
-    puts ""
-    puts "-" * 50
-    puts ""
     print_frame
     sleep 0.5
     advance_frame
