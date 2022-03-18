@@ -71,7 +71,7 @@ RSpec.describe GameOfLife, type: :model do
     end
 
     it "get_frame" do
-      my_frame = "........\n....*...\n...**...\n........"
+      my_frame = [%w[. . . . . . . .], %w[. . . . * . . .], %w[. . . * * . . .], %w[. . . . . . . .]]
       game_of_life.upload_txt("storage/sample.txt")
 
       expect(game_of_life.frame).to eq(my_frame)
