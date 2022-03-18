@@ -102,13 +102,13 @@ class GameOfLife
     row = @rows[1]
 
     if row.nil?
-      self.error += "Unable to get widht & height. "
+      self.error += "Unable to get width & height. "
     else
       if (row[0].to_i > 0) and (row[2].to_i > 0)
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
-        self.error += "Unable to get widht & height. "
+        self.error += "Unable to get width & height. "
       end
     end
   end
