@@ -70,11 +70,11 @@ RSpec.describe GameOfLife, type: :model do
       expect(game_of_life.error).to eq("")
     end
 
-    it "get_frame" do
-      my_frame = [%w[. . . . . . . .], %w[. . . . * . . .], %w[. . . * * . . .], %w[. . . . . . . .]]
+    it "alive_cells" do
+      my_alive_cells = {[1, 4]=>true, [2, 3]=>true, [2, 4]=>true}
       game_of_life.upload_txt(path)
 
-      expect(game_of_life.frame).to eq(my_frame)
+      expect(game_of_life.alive_cells).to eq(my_alive_cells)
       expect(game_of_life.error).to eq("")
     end
   end

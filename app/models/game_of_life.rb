@@ -4,17 +4,17 @@ class GameOfLife
   attr_accessor :file
   attr_accessor :generation
   attr_accessor :error
-  attr_accessor :frame
+  attr_accessor :alive_cells
 
   def initialize
     self.width = 0
     self.height = 0
     self.error = ''
-    @alive_cells = {}
+    self.alive_cells = {}
   end
 
   def run(path = "storage/test.txt")
-    @alive_cells = {}
+    self.alive_cells = {}
     self.error = ''
     upload_txt(path)
 
@@ -45,7 +45,7 @@ class GameOfLife
     self.height.times.each do |y|
       output = ""
       self.width.times.each do |x|
-        if @alive_cells.has_key?([y, x])
+        if self.alive_cells.has_key?([y, x])
           output += "*"
         else
           output += "."
@@ -85,7 +85,7 @@ class GameOfLife
     @rows = self.file.split(/\n/)
     get_generation
     get_width_height
-    get_frame if self.error.empty?
+    get_alive_cells if self.error.empty?
   end
 
   def get_generation
@@ -113,7 +113,7 @@ class GameOfLife
     end
   end
 
-  def get_frame
+  def get_alive_cells
     frame = Array.new(self.height) { Array.new(self.width) }
 
     self.height.times do |y|
@@ -123,39 +123,38 @@ class GameOfLife
 
         # @alice_cells contain the coordination of all live cells, used to advance the frame
         if @rows[y + 2][x].eql? "*"
-          @alive_cells[[y, x]] = true
+          self.alive_cells[[y, x]] = true
         end
       end
     end
 
-    self.frame = frame
-    self.error += "Unable to get frame\n" if self.frame.nil?
+    self.error += "Unable to get alive_cells\n" if self.alive_cells.empty?
   end
 
   def recalculate_alive_cells
     new_alive = {}
     self.height.times do |y|
       self.width.times do |x|
-        alive = self.frame[y][x].eql? "*"
+        alive = self.alive_cells.has_key?([y, x])
 
-        alive_neightbours = [
-          @alive_cells.has_key?([y - 1, x - 1]), # Top Left
-          @alive_cells.has_key?([y - 1, x]), # Top
-          @alive_cells.has_key?([y - 1, x + 1]), # Top Right
-          @alive_cells.has_key?([y, x + 1]), # Right
-          @alive_cells.has_key?([y + 1, x + 1]), # Bottom Right
-          @alive_cells.has_key?([y + 1, x]), # Bottom
-          @alive_cells.has_key?([y + 1, x - 1]), # Bottom Left
-          @alive_cells.has_key?([y, x - 1]) # Left
+        alive_neighbors = [
+          self.alive_cells.has_key?([y - 1, x - 1]), # Top Left
+          self.alive_cells.has_key?([y - 1, x]), # Top
+          self.alive_cells.has_key?([y - 1, x + 1]), # Top Right
+          self.alive_cells.has_key?([y, x + 1]), # Right
+          self.alive_cells.has_key?([y + 1, x + 1]), # Bottom Right
+          self.alive_cells.has_key?([y + 1, x]), # Bottom
+          self.alive_cells.has_key?([y + 1, x - 1]), # Bottom Left
+          self.alive_cells.has_key?([y, x - 1]) # Left
         ].count(true)
 
-        #Here it apply the Game of life rules for recalculate all the @alive_cells
-        if (alive and alive_neightbours.between?(2, 3)) or (!alive and alive_neightbours.eql? 3)
+        #Here it apply the Game of life rules for recalculate all the self.alive_cells
+        if (alive and alive_neighbors.between?(2, 3)) or (!alive and alive_neighbors.eql? 3)
           new_alive[[y, x]] = true
         end
       end
     end
 
-    @alive_cells = new_alive
+    self.alive_cells = new_alive
   end
 end
