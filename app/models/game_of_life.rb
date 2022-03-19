@@ -20,7 +20,7 @@ class GameOfLife
 
     if self.errors.empty?
       print_frame
-      sleep 0.5
+      sleep 0.3
       advance_frame
     else
       puts self.errors
@@ -68,7 +68,7 @@ class GameOfLife
     self.generation += 1
 
     print_frame
-    sleep 0.5
+    sleep 0.3
     advance_frame
   end
 
