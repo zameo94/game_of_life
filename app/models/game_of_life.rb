@@ -129,7 +129,7 @@ class GameOfLife
       end
     end
 
-    self.errors += "Unable to get alive_cells\n" if self.alive_cells.empty?
+    self.errors += "Unable to get alive_cells. " if self.alive_cells.empty?
   end
 
   # recalculate_alive_cells is the program's engine.
