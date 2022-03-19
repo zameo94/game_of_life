@@ -1,7 +1,7 @@
 # README
 
 This Ruby on Rails application reproduce the Conway's Game of life.
-You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life){target="_blank"}
+You can find more details about visiting <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Wikipedia</a>
 
 This application was created to be as light as a possible.
 
