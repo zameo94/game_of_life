@@ -82,3 +82,5 @@ To stop the interactions, just type:
 Ubuntu: ctrl + c
 Macos: ^ + c
 ```
+
+Enjoy!
