@@ -39,6 +39,8 @@ class GameOfLife
     else
       self.errors += "File not found. "
     end
+  rescue
+    self.errors += "Unable to upload file. "
   end
 
   # for a flexibility vision, I print the frame using alive_cells.
@@ -95,7 +97,8 @@ class GameOfLife
     row = @rows[0]
     if row.include? "Generation "
       columns = row.split(":")
-      self.generation = columns[0].last.to_i
+      self.generation = columns[0].last.to_i if columns[0].last.to_i > 0
+      self.errors += "Unable to find generation. " if self.generation.nil?
     else
       self.errors += "Unable to find generation. "
     end
@@ -104,16 +107,14 @@ class GameOfLife
   def get_width_height
     row = @rows[1]
 
-    if row.nil?
-      self.errors += "Unable to get width & height. "
-    else
       if (row[0].to_i > 0) and (row[2].to_i > 0) # if you convert a string into int, 0 was returned if the string haven't a numeric form
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
         self.errors += "Unable to get width & height. "
       end
-    end
+    rescue
+      self.errors += "Width & height's row not present. "
   end
 
   def get_alive_cells
