@@ -107,7 +107,8 @@ class GameOfLife
   def get_width_height
     row = @rows[1]
 
-      if (row[0].to_i > 0) and (row[2].to_i > 0) # if you convert a string into int, 0 was returned if the string haven't a numeric form
+      # if you convert a string into int, 0 was returned if the string haven't a numeric form
+      if (row[0].to_i > 0) and (row[2].to_i > 0)
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
@@ -150,7 +151,7 @@ class GameOfLife
           self.alive_cells.has_key?([y, x - 1]) # Left
         ].count(true)
 
-        #Here it apply the Game of life rules for recalculate all the alive_cells
+        #Here it apply the Conway's Game of life rules for recalculate all the alive_cells
         if (alive and alive_neighbors.between?(2, 3)) or (!alive and alive_neighbors.eql? 3)
           new_alive[[y, x]] = true
         end
