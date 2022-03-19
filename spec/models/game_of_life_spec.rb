@@ -77,5 +77,46 @@ RSpec.describe GameOfLife, type: :model do
       expect(game_of_life.alive_cells).to eq(my_alive_cells)
       expect(game_of_life.errors).to eq("")
     end
+
+    it "recalculate_alive_cells" do
+      my_new_gen_alive_cells = {[1, 3]=>true, [1, 4]=>true, [2, 3]=>true, [2, 4]=>true}
+      game_of_life.upload_txt(path)
+      game_of_life.send(:recalculate_alive_cells)
+
+      expect(game_of_life.alive_cells).to eq(my_new_gen_alive_cells)
+      expect(game_of_life.errors).to eq("")
+    end
+  end
+
+  context "error" do
+    it "width_height row not present" do
+      game_of_life.upload_txt("spec/files/test2.txt")
+
+      expect(game_of_life.errors).to eq("Width & height's row not present. ")
+    end
+
+    it "width_height not present" do
+      game_of_life.upload_txt("spec/files/test.txt")
+
+      expect(game_of_life.errors).to eq("Unable to get width & height. ")
+    end
+
+    it "generation not present" do
+      game_of_life.upload_txt("spec/files/test3.txt")
+
+      expect(game_of_life.errors).to eq("Unable to find generation. ")
+    end
+
+    it "uncorrected generation's row" do
+      game_of_life.upload_txt("spec/files/test4.txt")
+
+      expect(game_of_life.errors).to eq("Unable to find generation. Width & height's row not present. ")
+    end
+
+    it "empty file" do
+      game_of_life.upload_txt("spec/files/empty.txt")
+
+      expect(game_of_life.errors).to eq("Unable to upload file. ")
+    end
   end
 end

@@ -13,7 +13,7 @@ class GameOfLife
     self.alive_cells = {}
   end
 
-  def run(path = "storage/test.txt")
+  def run(path = "storage/sample.txt")
     self.alive_cells = {}
     self.errors = ''
     upload_txt(path)
@@ -39,8 +39,12 @@ class GameOfLife
     else
       self.errors += "File not found. "
     end
+  rescue
+    self.errors += "Unable to upload file. "
   end
 
+  # for a flexibility vision, I print the frame using alive_cells.
+  # like that i can use print_frame() for the first and even all following generations
   def print_frame
     puts "Generation: #{self.generation}"
     puts "#{self.height} #{self.width}"
@@ -58,6 +62,7 @@ class GameOfLife
     end
   end
 
+  #recursive function to keep the generations going
   def advance_frame
     recalculate_alive_cells
     self.generation += 1
@@ -92,7 +97,8 @@ class GameOfLife
     row = @rows[0]
     if row.include? "Generation "
       columns = row.split(":")
-      self.generation = columns[0].last.to_i
+      self.generation = columns[0].last.to_i if columns[0].last.to_i > 0
+      self.errors += "Unable to find generation. " if self.generation.nil?
     else
       self.errors += "Unable to find generation. "
     end
@@ -101,27 +107,21 @@ class GameOfLife
   def get_width_height
     row = @rows[1]
 
-    if row.nil?
-      self.errors += "Unable to get width & height. "
-    else
-      if (row[0].to_i > 0) and (row[2].to_i > 0)
+      if (row[0].to_i > 0) and (row[2].to_i > 0) # if you convert a string into int, 0 was returned if the string haven't a numeric form
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
         self.errors += "Unable to get width & height. "
       end
-    end
+    rescue
+      self.errors += "Width & height's row not present. "
   end
 
   def get_alive_cells
-    frame = Array.new(self.height) { Array.new(self.width) }
-
     self.height.times do |y|
       self.width.times do |x|
-        # sum y + 2 for compensate the first & second file's lines
-        frame[y][x] = @rows[y + 2][x]
-
-        # @alice_cells contain the coordination of all live cells, used to advance the frame
+        # self.alice_cells contain the coordination of all live cells, used to advance the frame
+        # sum [y + 2] for compensate the first & second file's lines
         if @rows[y + 2][x].eql? "*"
           self.alive_cells[[y, x]] = true
         end
@@ -131,6 +131,8 @@ class GameOfLife
     self.errors += "Unable to get alive_cells\n" if self.alive_cells.empty?
   end
 
+  # recalculate_alive_cells is the program's engine.
+  # Thanks to him, it's possible calculate the next generation
   def recalculate_alive_cells
     new_alive = {}
     self.height.times do |y|
@@ -148,7 +150,7 @@ class GameOfLife
           self.alive_cells.has_key?([y, x - 1]) # Left
         ].count(true)
 
-        #Here it apply the Game of life rules for recalculate all the self.alive_cells
+        #Here it apply the Game of life rules for recalculate all the alive_cells
         if (alive and alive_neighbors.between?(2, 3)) or (!alive and alive_neighbors.eql? 3)
           new_alive[[y, x]] = true
         end
