@@ -77,5 +77,14 @@ RSpec.describe GameOfLife, type: :model do
       expect(game_of_life.alive_cells).to eq(my_alive_cells)
       expect(game_of_life.errors).to eq("")
     end
+
+    it "recalculate_alive_cells" do
+      my_new_gen_alive_cells = {[1, 3]=>true, [1, 4]=>true, [2, 3]=>true, [2, 4]=>true}
+      game_of_life.upload_txt(path)
+      game_of_life.send(:recalculate_alive_cells)
+
+      expect(game_of_life.alive_cells).to eq(my_new_gen_alive_cells)
+      expect(game_of_life.errors).to eq("")
+    end
   end
 end
