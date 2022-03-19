@@ -108,7 +108,7 @@ class GameOfLife
     row = @rows[1]
 
       # if you convert a string into int, 0 was returned if the string haven't a numeric form
-      if (row[0].to_i > 0) and (row[2].to_i > 0)
+      if (row[0].to_i > 0) and (row[1].eql? " ") and (row[2].to_i > 0)
         self.width = row[2].to_i
         self.height = row[0].to_i
       else
