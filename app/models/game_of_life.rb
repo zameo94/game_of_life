@@ -119,12 +119,12 @@ class GameOfLife
   end
 
   def get_alive_cells
-    self.height.times do |y|
+    self.height.times do |row|
       self.width.times do |x|
         # self.alice_cells contain the coordination of all live cells, used to advance the frame
         # sum [y + 2] for compensate the first & second file's lines
-        if @rows[y + 2][x].eql? "*"
-          self.alive_cells[[y, x]] = true
+        if @rows[row + 2][x].eql? "*"
+          self.alive_cells[[row, x]] = true
         end
       end
     end
@@ -136,24 +136,24 @@ class GameOfLife
   # Thanks to him, it's possible calculate the next generation
   def recalculate_alive_cells
     new_alive = {}
-    self.height.times do |y|
-      self.width.times do |x|
-        alive = self.alive_cells.has_key?([y, x])
+    self.height.times do |row|
+      self.width.times do |column|
+        alive = self.alive_cells.has_key?([row, column])
 
         alive_neighbors = [
-          self.alive_cells.has_key?([y - 1, x - 1]), # Top Left
-          self.alive_cells.has_key?([y - 1, x]), # Top
-          self.alive_cells.has_key?([y - 1, x + 1]), # Top Right
-          self.alive_cells.has_key?([y, x + 1]), # Right
-          self.alive_cells.has_key?([y + 1, x + 1]), # Bottom Right
-          self.alive_cells.has_key?([y + 1, x]), # Bottom
-          self.alive_cells.has_key?([y + 1, x - 1]), # Bottom Left
-          self.alive_cells.has_key?([y, x - 1]) # Left
+          self.alive_cells.has_key?([row - 1, column - 1]), # Top Left
+          self.alive_cells.has_key?([row - 1, column]), # Top
+          self.alive_cells.has_key?([row - 1, column + 1]), # Top Right
+          self.alive_cells.has_key?([row, column + 1]), # Right
+          self.alive_cells.has_key?([row + 1, column + 1]), # Bottom Right
+          self.alive_cells.has_key?([row + 1, column]), # Bottom
+          self.alive_cells.has_key?([row + 1, column - 1]), # Bottom Left
+          self.alive_cells.has_key?([row, column - 1]) # Left
         ].count(true)
 
         #Here it apply the Conway's Game of life rules for recalculate all the alive_cells
         if (alive and alive_neighbors.between?(2, 3)) or (!alive and alive_neighbors.eql? 3)
-          new_alive[[y, x]] = true
+          new_alive[[row, column]] = true
         end
       end
     end
