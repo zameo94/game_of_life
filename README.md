@@ -1,6 +1,6 @@
 # README
 
-This Ruby on Rails application reproduce the Conway's Game of life.
+This simple Ruby on Rails application reproduce the Conway's Game of life.
 You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 This application was created to be as light as a possible.
@@ -36,7 +36,7 @@ git clone https://github.com/zameo94/game_of_life.git
 ```
 * Enter in the project's directory
 ```
-cd project_dir_path
+cd game_of_life
 ```
 
 * Install gems
