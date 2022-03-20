@@ -46,7 +46,7 @@ bundle install
 
 Congratulations, all are ready
 
-If you want to run Rspec test, just go in the project directory and type:
+If you want to run Rspec tests, just go in the project directory and type:
 ```
 rspec spec
 ```
