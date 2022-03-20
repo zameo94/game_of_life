@@ -1,7 +1,7 @@
 # README
 
 This Ruby on Rails application reproduce the Conway's Game of life.
-You can find more details about visiting <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Wikipedia</a>
+You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 This application was created to be as light as a possible.
 
@@ -17,7 +17,7 @@ Generation 3:
 ........
 ```
 
-Is eccepted only a matrix with a single digit number(1...9) for both rows and columns
+The only matrices allowed are those with a single digit number(1...9) for both rows and columns
 
 Was tested on:
 
@@ -45,6 +45,11 @@ bundle install
 ```
 
 Congratulations, all are ready
+
+If you want to run Rspec test, just go in the project directory and type:
+```
+rspec spec
+```
 
 This applications implements 2 examples. For prove them, just type the right command on the project's directory.
 
@@ -82,5 +87,4 @@ To stop the interactions, just type:
 Ubuntu: ctrl + c
 Macos: ^ + c
 ```
-
 Enjoy!
