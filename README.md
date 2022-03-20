@@ -51,36 +51,37 @@ If you want to run Rspec tests, just go in the project directory and type:
 rspec spec
 ```
 
+## Play
 This applications implements 2 examples. For prove them, just type the right command on the project's directory.
 
 * Example 1:
-```
-rake game_of_life:run_sample
-```
-File:
-```
-Generation 3:
-4 8
-........
-....*...
-...**...
-........
-```
+    ```
+    rake game_of_life:run_sample
+    ```
+    File:
+    ```
+    Generation 3:
+    4 8
+    ........
+    ....*...
+    ...**...
+    ........
+    ```
 
 * Example 2:
-```
-rake game_of_life:run_sample2
-```
-File:
-```
-Generation 1:
-5 5
-.....
-.....
-.***.
-.....
-.....
-```
+    ```
+    rake game_of_life:run_sample2
+    ```
+    File:
+    ```
+    Generation 1:
+    5 5
+    .....
+    .....
+    .***.
+    .....
+    .....
+    ```
 
 To stop the interactions, just type:
 ```
