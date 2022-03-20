@@ -6,7 +6,7 @@
 * [Play](#play)
 
 
-##Intro
+## Intro
 This simple Ruby on Rails application reproduce the Conway's Game of life.
 You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
