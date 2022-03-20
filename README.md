@@ -57,7 +57,7 @@ This applications implements 2 examples. For prove them, just type the right com
 ```
 rake game_of_life:run_sample
 ```
-Start at:
+File:
 ```
 Generation 3:
 4 8
@@ -71,7 +71,7 @@ Generation 3:
 ```
 rake game_of_life:run_sample2
 ```
-Start at:
+File:
 ```
 Generation 1:
 5 5
