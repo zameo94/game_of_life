@@ -7,12 +7,12 @@
 
 
 ## Intro
-This simple Ruby on Rails application reproduce the Conway's Game of life.
+This simple Ruby on Rails console application reproduce the Conway's Game of life.
 You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 This application was created to be as light as a possible.
 
-There is no ActiveRecords or Migrations, having the only goal of print the evolution of a matrix (following the Game of life rules)
+There is no ActiveRecords or Migrations, not need a webserver or database, having the only goal of print (in console) the evolution of a matrix (following the Game of life rules)
 through a pattern like the example below:
 
 ```
@@ -24,7 +24,7 @@ Generation 3:
 ........
 ```
 
-The only matrices allowed are those with a single digit number(1...9) for both rows and columns
+The only matrices allowed are those with a single digit number for both rows and columns (1...9)
 
 Was tested on:
 
