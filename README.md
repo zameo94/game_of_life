@@ -1,5 +1,12 @@
 # README
+## Index
+* [Intro](#intro)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+* [Play](#play)
 
+
+##Intro
 This simple Ruby on Rails application reproduce the Conway's Game of life.
 You can find more details about visiting [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
