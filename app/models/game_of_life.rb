@@ -7,6 +7,8 @@ class GameOfLife
   attr_accessor :alive_cells
 
   def initialize
+    # this comment comes from develop branch
+
     self.width = 0
     self.height = 0
     self.errors = ''
