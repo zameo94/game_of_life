@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GameOfLife, type: :model do
   let(:game_of_life) { GameOfLife.new }
-  let!(:path) { "storage/sample.txt" }
+  let!(:path) { "storage/sample.tdt" }
 
   context "GameOfLife" do
     it "must have width & height" do
