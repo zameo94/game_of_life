@@ -1,13 +1,5 @@
 name: CI RSpec Tests
 
-on: [push, pull_request]
-  push:
-    paths:
-      - 'api/**'
-  pull_request:
-    paths:
-      - 'api/**'
-
 jobs:
   build:
     name: CI
