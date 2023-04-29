@@ -81,11 +81,9 @@ class GameOfLife
   end
 
   def validate_extension(file)
-    if File.extname(file).eql? ".txt"
-      self.file = file.read
-    else
-      self.errors += "Wrong file format. "
-    end
+    return self.errors += "Wrong file format. " unless File.extname(file).eql?(".txt")
+
+    self.file = file.read
   end
 
   def parse_file
