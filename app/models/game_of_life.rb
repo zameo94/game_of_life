@@ -30,17 +30,13 @@ class GameOfLife
   end
 
   def upload_txt(path)
-    if File.exist?(path)
-      file = File.open(path, "r")
-      validate_file(file)
-      file.close
+    return self.errors += "File not found. " unless File.exist?(path)
 
-      unless self.file.nil?
-        parse_file
-      end
-    else
-      self.errors += "File not found. "
+    File.open(path, "r") do |file|
+      validate_file(file)
+      parse_file unless self.file.nil?
     end
+
   rescue
     self.errors += "Unable to upload file. "
   end
