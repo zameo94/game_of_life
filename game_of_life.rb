@@ -76,6 +76,17 @@ def battleship_shape(grid)
   grid
 end
 
+def random_pattern(grid)
+  grid.each_with_index do |row, i|
+    row.each_with_index do |column, k|
+      # rand(2) return 0 or 1
+      # This fulfill the grid with a 50% chance
+      grid[i][k] = rand(2) == 0 ? ALIVE : DEAD
+    end
+  end
+  grid
+end
+
 def print_grid(generation, grid)
   puts('-' * 50) 
   puts('You can stop the simulation by pressing the key s')
@@ -90,7 +101,7 @@ def main
   grid = Array.new(20) { Array.new(20, DEAD) }
   generation = 0
 
-  grid = battleship_shape(grid)
+  grid = random_pattern(grid)
 
   while true
     print_grid(generation, grid)
@@ -105,7 +116,7 @@ def main
     grid = next_generation_grid(grid)
     generation += 1
 
-    sleep(0.5)
+    sleep(0.2)
   end
 end
 
